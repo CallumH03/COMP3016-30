@@ -2,14 +2,26 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <string>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+int main() {
+    std::string file_path = "Maze.txt";
+    std::ifstream file(file_path);
+
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::cout << line << std::endl;
+        }
+        file.close();
+    }
+    else {
+        std::cerr << "Error opening file " << file_path << std::endl;
+    }
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
 // Tips for Getting Started: 
 //   1. Use the Solution Explorer window to add/manage files
