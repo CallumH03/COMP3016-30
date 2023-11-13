@@ -1,32 +1,92 @@
-// COMP3016-30.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+
+void displayMaze(const std::vector<std::string>& maze) {
+    for (const auto& line : maze) {
+        std::cout << line << std::endl;
+    }
+}
+
+void findPlayerPosition(const std::vector<std::string>& maze, int& playerRow, int& playerCol) {
+    for (int i = 0; i < maze.size(); ++i) {
+        for (int j = 0; j < maze[i].size(); ++j) {
+            if (maze[i][j] == 'P') {
+                playerRow = i;
+                playerCol = j;
+                return;
+            }
+        }
+    }
+}
 
 int main() {
     std::string file_path = "Maze.txt";
     std::ifstream file(file_path);
 
-    if (file.is_open()) {
-        std::string line;
-        while (std::getline(file, line)) {
-            std::cout << line << std::endl;
-        }
-        file.close();
-    }
-    else {
+    if (!file.is_open()) {
         std::cerr << "Error opening file " << file_path << std::endl;
+        return 1;
+    }
+
+    std::vector<std::string> maze;
+    std::string line;
+
+    while (std::getline(file, line)) {
+        maze.push_back(line);
+    }
+
+    file.close();
+
+    int playerRow, playerCol;
+    findPlayerPosition(maze, playerRow, playerCol);
+
+    char move;
+    while (true) {
+        displayMaze(maze);
+
+        std::cout << "Enter move (W/A/S/D to move, Q to quit): ";
+        std::cin >> move;
+
+
+
+        switch (move) {
+        case 'W':
+        case 'w':
+            if (maze[playerRow - 1][playerCol] != '#') {
+                maze[playerRow][playerCol] = ' ';
+                maze[--playerRow][playerCol] = 'P';
+            }
+            break;
+        case 'A':
+        case 'a':
+            if (maze[playerRow][playerCol - 1] != '#') {
+                maze[playerRow][playerCol] = ' ';
+                maze[playerRow][--playerCol] = 'P';
+            }
+            break;
+        case 'S':
+        case 's':
+            if (maze[playerRow + 1][playerCol] != '#') {
+                maze[playerRow][playerCol] = ' ';
+                maze[++playerRow][playerCol] = 'P';
+            }
+            break;
+        case 'D':
+        case 'd':
+            if (maze[playerRow][playerCol + 1] != '#') {
+                maze[playerRow][playerCol] = ' ';
+                maze[playerRow][++playerCol] = 'P';
+            }
+            break;
+        case 'Q':
+        case 'q':
+            return 0;
+        default:
+            std::cout << "Invalid move. Try again." << std::endl;
+        }
     }
 
     return 0;
 }
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
