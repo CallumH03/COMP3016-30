@@ -142,7 +142,14 @@
     <ClCompile Include="COMP3016-30.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Maze.txt" />
+    <Text Include="Maze1.txt" />
+    <Text Include="Maze2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="COMP3016-30.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
