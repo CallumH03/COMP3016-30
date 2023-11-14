@@ -2,7 +2,18 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <cstdlib>
+
+void displaymenu() {
+    std::cout << "Welcome to Maze Expand" << std::endl;
+    std::cout << "You are represented by 'P' on the maze." << std::endl;
+    std::cout << "Use W/A/S/D to move (Up/Left/Down/Right)." << std::endl;
+    std::cout << "Try to find your way to the key ('K') to open the door ('D')" << std::endl;
+    std::cout << "You can not go through walls ('#')" << std::endl;
+    std::cout << "Type 'Q' to quit the game at any time." << std::endl;
+    std::cout << "Type 'Play' to start" << std::endl;
+}
 
 void displayMaze(const std::vector<std::string>& maze) {
     for (const auto& line : maze) {
@@ -54,6 +65,26 @@ int main() {
     }
 
     file.close();
+
+    std::string startCommand;
+    displaymenu();
+
+    while (true) {
+        std::cin >> startCommand;
+
+        std::transform(startCommand.begin(), startCommand.end(), startCommand.begin(), ::tolower);
+
+        if (startCommand == "play") {
+            break;
+        }
+        else if (startCommand == "quit" || startCommand == "q") {
+            std::cout << "Successfully quit the game" << std::endl;
+            return 0;
+        }
+        else {
+            std::cout << "Invalid command. Type 'play' to start or 'quit' to exit: ";
+        }
+    }
 
     int playerRow, playerCol;
     findPlayerPosition(maze, playerRow, playerCol);
