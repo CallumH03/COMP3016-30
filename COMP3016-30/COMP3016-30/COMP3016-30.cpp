@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <limits>
 
 void displaymenu() {
     std::cout << "Welcome to Maze Expand" << std::endl;
@@ -11,6 +12,7 @@ void displaymenu() {
     std::cout << "Use W/A/S/D to move (Up/Left/Down/Right)." << std::endl;
     std::cout << "Try to find your way to the key ('K') to open the door ('D')" << std::endl;
     std::cout << "You cannot go through walls ('#')" << std::endl;
+    std::cout << "There are 10 levels to complete" << std::endl;
     std::cout << "Type 'Q' to quit the game at any time." << std::endl;
     std::cout << "Type 'Play' to start" << std::endl;
 }
@@ -116,7 +118,7 @@ int main() {
         }
     }
 
-    char move;
+    std::string move;
     while (true) {
         clearConsole();
         displayMaze(maze);
@@ -126,52 +128,55 @@ int main() {
         }
 
         std::cout << "Enter move (W/A/S/D to move, Q to quit): ";
-        std::cin >> move;
+        std::getline(std::cin, move);
 
-        switch (move) {
-        case 'W':
-        case 'w':
-            if (maze[playerRow - 1][playerCol] != '#' && maze[playerRow - 1][playerCol] != 'D') {
-                handleMove(maze, playerRow, playerCol, playerRow - 1, playerCol);
+        if (move.length() == 1) {
+            char direction = move[0];
+
+            switch (direction) {
+            case 'W':
+            case 'w':
+                if (playerRow - 1 >= 0 && maze[playerRow - 1][playerCol] != '#' && maze[playerRow - 1][playerCol] != 'D') {
+                    handleMove(maze, playerRow, playerCol, playerRow - 1, playerCol);
+                }
+                else if (playerRow - 1 >= 0 && maze[playerRow - 1][playerCol] == 'D' && hasKey) {
+                    handleMove(maze, playerRow, playerCol, playerRow - 1, playerCol);
+                }
+                break;
+            case 'A':
+            case 'a':
+                if (playerCol - 1 >= 0 && maze[playerRow][playerCol - 1] != '#' && maze[playerRow][playerCol - 1] != 'D') {
+                    handleMove(maze, playerRow, playerCol, playerRow, playerCol - 1);
+                }
+                else if (playerCol - 1 >= 0 && maze[playerRow][playerCol - 1] == 'D' && hasKey) {
+                    handleMove(maze, playerRow, playerCol, playerRow, playerCol - 1);
+                }
+                break;
+            case 'S':
+            case 's':
+                if (playerRow + 1 < maze.size() && maze[playerRow + 1][playerCol] != '#' && maze[playerRow + 1][playerCol] != 'D') {
+                    handleMove(maze, playerRow, playerCol, playerRow + 1, playerCol);
+                }
+                else if (playerRow + 1 < maze.size() && maze[playerRow + 1][playerCol] == 'D' && hasKey) {
+                    handleMove(maze, playerRow, playerCol, playerRow + 1, playerCol);
+                }
+                break;
+            case 'D':
+            case 'd':
+                if (playerCol + 1 < maze[playerRow].size() && maze[playerRow][playerCol + 1] != '#' && maze[playerRow][playerCol + 1] != 'D') {
+                    handleMove(maze, playerRow, playerCol, playerRow, playerCol + 1);
+                }
+                else if (playerCol + 1 < maze[playerRow].size() && maze[playerRow][playerCol + 1] == 'D' && hasKey) {
+                    handleMove(maze, playerRow, playerCol, playerRow, playerCol + 1);
+                }
+                break;
+            case 'Q':
+            case 'q':
+                std::cout << "Successfully quit the game" << std::endl;
+                return 0;
             }
-            else if (maze[playerRow - 1][playerCol] == 'D' && hasKey) {
-                handleMove(maze, playerRow, playerCol, playerRow - 1, playerCol);
-            }
-            break;
-        case 'A':
-        case 'a':
-            if (maze[playerRow][playerCol - 1] != '#' && maze[playerRow][playerCol - 1] != 'D') {
-                handleMove(maze, playerRow, playerCol, playerRow, playerCol - 1);
-            }
-            else if (maze[playerRow][playerCol - 1] == 'D' && hasKey) {
-                handleMove(maze, playerRow, playerCol, playerRow, playerCol - 1);
-            }
-            break;
-        case 'S':
-        case 's':
-            if (maze[playerRow + 1][playerCol] != '#' && maze[playerRow + 1][playerCol] != 'D') {
-                handleMove(maze, playerRow, playerCol, playerRow + 1, playerCol);
-            }
-            else if (maze[playerRow + 1][playerCol] == 'D' && hasKey) {
-                handleMove(maze, playerRow, playerCol, playerRow + 1, playerCol);
-            }
-            break;
-        case 'D':
-        case 'd':
-            if (maze[playerRow][playerCol + 1] != '#' && maze[playerRow][playerCol + 1] != 'D') {
-                handleMove(maze, playerRow, playerCol, playerRow, playerCol + 1);
-            }
-            else if (maze[playerRow][playerCol + 1] == 'D' && hasKey) {
-                handleMove(maze, playerRow, playerCol, playerRow, playerCol + 1);
-            }
-            break;
-        case 'Q':
-        case 'q':
-            std::cout << "Successfully quit the game" << std::endl;
-            return 0;
-        default:
-            std::cout << "Invalid move. Try again." << std::endl;
         }
+
 
         if (playerRow == keyRow && playerCol == keyCol) {
             hasKey = true;
@@ -179,7 +184,13 @@ int main() {
         }
 
         if (hasKey && playerRow == doorRow && playerCol == doorCol) {
-            std::cout << "Congratulations! You opened the door and completed level " << currentLevel << "!" << std::endl;
+            if (currentLevel == 10) {
+                std::cout << "Congratulations! You completed the game!" << std::endl;
+                return 0;
+            }
+            else
+                std::cout << "Congratulations! You opened the door and completed level " << currentLevel << "!" << std::endl;
+
             ++currentLevel;
 
             std::string nextLevelPath = "Maze" + std::to_string(currentLevel) + ".txt";

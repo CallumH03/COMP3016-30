@@ -29,6 +29,30 @@
     <Text Include="Maze2.txt">
       <Filter>Levels</Filter>
     </Text>
+    <Text Include="Maze3.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Maze4.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Maze5.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Maze6.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Maze7.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Maze8.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Maze9.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Maze10.txt">
+      <Filter>Levels</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

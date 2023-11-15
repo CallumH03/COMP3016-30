@@ -143,7 +143,15 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Maze1.txt" />
+    <Text Include="Maze10.txt" />
     <Text Include="Maze2.txt" />
+    <Text Include="Maze3.txt" />
+    <Text Include="Maze4.txt" />
+    <Text Include="Maze5.txt" />
+    <Text Include="Maze6.txt" />
+    <Text Include="Maze7.txt" />
+    <Text Include="Maze8.txt" />
+    <Text Include="Maze9.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
