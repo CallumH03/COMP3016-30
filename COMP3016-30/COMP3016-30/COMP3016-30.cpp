@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <limits>
 
+
 void displaymenu() {
     std::cout << "Welcome to Maze Expand" << std::endl;
     std::cout << "You are represented by 'P' on the maze." << std::endl;
@@ -82,6 +83,7 @@ bool loadMaze(const std::string& file_path, std::vector<std::string>& maze, int&
 
     return true;
 }
+
 
 int main() {
     int currentLevel = 1;
@@ -186,6 +188,8 @@ int main() {
         if (hasKey && playerRow == doorRow && playerCol == doorCol) {
             if (currentLevel == 10) {
                 std::cout << "Congratulations! You completed the game!" << std::endl;
+                std::cout << "Press Enter to close the game...";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 return 0;
             }
             else
