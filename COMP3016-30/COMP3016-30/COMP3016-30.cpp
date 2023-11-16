@@ -213,7 +213,7 @@ int main() {
         //Checks if the player has reached the door and has the key
         if (hasKey && playerRow == doorRow && playerCol == doorCol) {
             //Checks to see if they have completed the final level
-            if (currentLevel == 10) {
+            if (currentLevel == 2) {
                 std::cout << "Congratulations! You completed the game!" << std::endl;
                 std::cout << "Press Enter to close the game...";
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
