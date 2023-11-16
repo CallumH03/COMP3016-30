@@ -3,10 +3,6 @@ COMP3016 30% C++ Console Game
 
 Maze Expand is a C++ Console Game developed in Visual Studio 2022 (v143) using Windows 10 Pro 22H2. 
 
-## Installation
-To play the game simply unzip the CPPGame.ZIP file and launch the .exe file.
-
-
 ## Instructions
 - Type **"Play"** to start and **"Q"** to quit
 - Press **W/A/S/D** to move either **Up/Left/Right/Down**
